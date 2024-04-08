@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,15 @@ public class RequestHandler implements Runnable {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
             Request request = new Request(in);
             String path = request.getPath();
-            byte[] body = FileIoUtils.loadFileFromClasspath("./templates/index.html");
+            String contentType = request.getContentType();
+            byte body[];
+            if (Objects.equals(path, "/index.html")) {
+                body = FileIoUtils.loadFileFromClasspath("./templates/index.html");
+            } else {
+                body = FileIoUtils.loadFileFromClasspath("./static/css/styles.css");
+            }
             DataOutputStream dos = new DataOutputStream(out);
-            response200Header(dos, body.length);
+            response200Header(dos, body.length, contentType);
             responseBody(dos, body);
         } catch (IOException e) {
             logger.error(e.getMessage());
@@ -44,10 +51,10 @@ public class RequestHandler implements Runnable {
         }
     }
 
-    private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
+    private void response200Header(DataOutputStream dos, int lengthOfBodyContent, String contentType) {
         try {
             dos.writeBytes("HTTP/1.1 200 OK \r\n");
-            dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
+            dos.writeBytes("Content-Type: "+ contentType + ";charset=utf-8\r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");
         } catch (IOException e) {

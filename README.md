@@ -12,6 +12,7 @@
 ## 기능
 - [x] Request Header에서 Path를 추출한다.
 - [x] Path에 해당하는 파일을 반환한다.
+- [x] css 파일을 반환한다.
 
 ## 온라인 코드 리뷰 과정
 * [텍스트와 이미지로 살펴보는 온라인 코드 리뷰 과정](https://github.com/next-step/nextstep-docs/tree/master/codereview)
