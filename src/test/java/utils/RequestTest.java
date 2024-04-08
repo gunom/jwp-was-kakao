@@ -4,9 +4,10 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.junit.jupiter.api.Test;
+
+import webserver.request.Request;
 
 public class RequestTest {
     @Test
