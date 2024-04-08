@@ -1,13 +1,20 @@
 package webserver;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.URISyntaxException;
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import utils.FileIoUtils;
+import utils.Request;
 
 public class RequestHandler implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(RequestHandler.class);
@@ -24,12 +31,16 @@ public class RequestHandler implements Runnable {
 
         try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
+            Request request = new Request(in);
+            String path = request.getPath();
+            byte[] body = FileIoUtils.loadFileFromClasspath("./templates/index.html");
             DataOutputStream dos = new DataOutputStream(out);
-            byte[] body = "Hello World".getBytes();
             response200Header(dos, body.length);
             responseBody(dos, body);
         } catch (IOException e) {
             logger.error(e.getMessage());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 

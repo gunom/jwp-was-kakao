@@ -14,4 +14,11 @@ public class HttpRequestTest {
         ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8080", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+
+    @Test
+    void path에_해당하는_file을_읽어온다() {
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:8080/index.html", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
