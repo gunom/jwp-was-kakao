@@ -26,7 +26,8 @@ public class Controller {
 
     private static Response handleUserCreate(Request request) {
         User user = UserService.addUser(request.getBody());
-        return ApiResponse.of(user.toString());
+        String location = "/index.html";
+        return ApiResponse.of(user.toString(), location);
     }
 
     private static Response handleDefault(Request request) {
