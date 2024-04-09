@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import service.UserService;
 import utils.FileIoUtils;
 import webserver.request.Request;
 import webserver.request.Path;
@@ -31,6 +32,10 @@ public class RequestHandler implements Runnable {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
             Request request = new Request(in);
             Path path = request.getPath();
+            if (path.getPathWithoutParam().equals("/user/create")) {
+                UserService.addUser(path.getParams());
+                return;
+            }
             String contentType = request.getContentType();
             byte[] body = getBytes(path);
             DataOutputStream dos = new DataOutputStream(out);
