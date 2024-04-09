@@ -1,13 +1,10 @@
 package controller;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.function.Function;
 
 import model.User;
 import service.UserService;
-import utils.FileIoUtils;
 import webserver.request.Path;
 import webserver.request.Request;
 import webserver.response.ApiResponse;
@@ -28,18 +25,11 @@ public class Controller {
     }
 
     private static Response handleUserCreate(Request request) {
-        User user = UserService.addUser(request.getPath().getParams());
+        User user = UserService.addUser(request.getBody());
         return ApiResponse.of(user.toString());
     }
 
     private static Response handleDefault(Request request) {
-        // String contentType = request.getContentType();
-        // byte[] body = getFormFileResource(request.getPath());
         return FileResponse.of(request.getPath().getPathWithoutParam());
-    }
-
-    private static byte[] getFormFileResource(Path path) throws IOException, URISyntaxException {
-        String filepath = FileIoUtils.convertPathToFilePath(path.getPathWithoutParam());
-        return FileIoUtils.loadFileFromClasspath(filepath);
     }
 }

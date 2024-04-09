@@ -32,17 +32,7 @@ public class RequestHeader {
         return headers.get(s);
     }
 
-    public String getContentType() {
-        String pathWithoutParam = requestLine.getPath().getPathWithoutParam();
-        if (pathWithoutParam.contains("html")) {
-            return "text/html";
-        }
-        if (pathWithoutParam.contains("css")) {
-            return "text/css";
-        }
-        if (pathWithoutParam.contains("js")) {
-            return "text/javascript";
-        }
-        return "text/plain";
+    public int getContentLength() {
+        return Integer.parseInt(headers.getOrDefault("Content-Length", "0"));
     }
 }
