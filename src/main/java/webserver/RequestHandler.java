@@ -10,10 +10,12 @@ import java.net.URISyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import controller.Controller;
 import service.UserService;
 import utils.FileIoUtils;
 import webserver.request.Request;
 import webserver.request.Path;
+import webserver.response.Response;
 
 public class RequestHandler implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(RequestHandler.class);
@@ -31,20 +33,22 @@ public class RequestHandler implements Runnable {
         try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
             Request request = new Request(in);
-            Path path = request.getPath();
-            if (path.getPathWithoutParam().equals("/user/create")) {
-                UserService.addUser(path.getParams());
-                return;
-            }
-            String contentType = request.getContentType();
-            byte[] body = getBytes(path);
+            // Path path = request.getPath();
+            // if (path.getPathWithoutParam().equals("/user/create")) {
+            //     UserService.addUser(path.getParams());
+            //     return;
+            // }
+            // String contentType = request.getContentType();
+            // byte[] body = getBytes(path);
             DataOutputStream dos = new DataOutputStream(out);
-            response200Header(dos, body.length, contentType);
-            responseBody(dos, body);
+            // response200Header(dos, body.length, contentType);
+            // responseBody(dos, body);
+            Response response = Controller.handle(request);
+            dos.write(response.getHeader());
+            dos.write(response.getBody());
+            dos.flush();
         } catch (IOException e) {
             logger.error(e.getMessage());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
     }
 

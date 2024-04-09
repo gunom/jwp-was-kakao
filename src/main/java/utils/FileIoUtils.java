@@ -14,7 +14,7 @@ public class FileIoUtils {
 
 
     public static String convertPathToFilePath(String uriPath) {
-        if (uriPath.contains("html") || uriPath.contains("ico")) {
+        if (uriPath.endsWith("html") || uriPath.endsWith("ico")) {
             return "./templates" + uriPath;
         }
         return "./static" + uriPath;
