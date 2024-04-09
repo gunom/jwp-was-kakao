@@ -9,4 +9,8 @@ public class Method {
     public Method(String method) {
         this.method = method.toUpperCase(Locale.ROOT);
     }
+
+    public String getMethod() {
+        return method;
+    }
 }

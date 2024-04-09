@@ -14,6 +14,7 @@ import webserver.response.Response;
 public class Controller {
 
     private static final Map<String, Function<Request, Response>> controllerMap = Map.of(
+        "/", Controller::handleHome,
         "/user/create", Controller::handleUserCreate
     );
 
@@ -22,6 +23,10 @@ public class Controller {
         return controllerMap
             .getOrDefault(path.getPathWithoutParam(), Controller::handleDefault)
             .apply(request);
+    }
+
+    private static Response handleHome(Request request) {
+        return ApiResponse.of("Hello World");
     }
 
     private static Response handleUserCreate(Request request) {

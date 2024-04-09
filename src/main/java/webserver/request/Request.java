@@ -11,7 +11,6 @@ public class Request {
     private final RequestHeader requestHeader;
     private final RequestBody requestBody;
 
-
     public Request(InputStream inputStream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         requestHeader = new RequestHeader(reader);

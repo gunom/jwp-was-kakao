@@ -51,6 +51,7 @@ public class FileResponse implements Response {
             return new NotFoundResponse();
         }
     }
+
     @Override
     public byte[] getHeader() {
         return header;

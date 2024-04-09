@@ -35,4 +35,8 @@ public class RequestHeader {
     public int getContentLength() {
         return Integer.parseInt(headers.getOrDefault("Content-Length", "0"));
     }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
 }

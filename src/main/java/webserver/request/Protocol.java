@@ -7,4 +7,8 @@ public class Protocol {
     public Protocol(String protocol) {
         this.protocol = protocol;
     }
+
+    public String getProtocol() {
+        return protocol;
+    }
 }

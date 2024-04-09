@@ -1,13 +1,13 @@
 package webserver.request;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
+
+import utils.ParseUtils;
 
 public class Path {
 
     private final String path;
-    private final Map<String, String> params = new HashMap<>();
+    private Map<String, String> params;
 
     public Path(String path) {
         this.path = path;
@@ -18,12 +18,7 @@ public class Path {
 
     private void parseParams() {
         String[] tokens = path.split("\\?");
-        String[] params = tokens[1].split("&");
-        Arrays.stream(params)
-                .forEach(param -> {
-                    String[] keyValue = param.split("=");
-                    this.params.put(keyValue[0], keyValue[1]);
-                });
+        params = ParseUtils.parseParam(tokens[1]);
     }
 
     public String getPathWithoutParam() {

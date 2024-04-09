@@ -12,7 +12,6 @@ public class FileIoUtils {
         return Files.readAllBytes(path);
     }
 
-
     public static String convertPathToFilePath(String uriPath) {
         if (uriPath.endsWith("html") || uriPath.endsWith("ico")) {
             return "./templates" + uriPath;

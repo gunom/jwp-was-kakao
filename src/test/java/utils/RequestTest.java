@@ -22,6 +22,6 @@ public class RequestTest {
         Request request = new Request(new ByteArrayInputStream(request_stream.getBytes()));
 
         // then
-        assertThat(request.getPath()).isEqualTo("/index.html");
+        assertThat(request.getPath().getPathWithoutParam()).isEqualTo("/index.html");
     }
 }
