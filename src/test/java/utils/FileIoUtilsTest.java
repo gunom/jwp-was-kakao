@@ -20,7 +20,7 @@ public class FileIoUtilsTest {
     @ParameterizedTest
     @CsvSource(value = {"/index.html,./templates/index.html", "/css/styles.css,./static/css/styles.css"})
     void testConvertPathToFilePath(String path, String expected) {
-        String filePath = FileIoUtils.convertPathToFilePath(path);
+        String filePath = FilePathConverter.convertPathToFilePath(path);
         assertThat(filePath).isEqualTo(expected);
     }
 }

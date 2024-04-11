@@ -11,11 +11,4 @@ public class FileIoUtils {
         Path path = Paths.get(FileIoUtils.class.getClassLoader().getResource(filePath).toURI());
         return Files.readAllBytes(path);
     }
-
-    public static String convertPathToFilePath(String uriPath) {
-        if (uriPath.endsWith("html") || uriPath.endsWith("ico")) {
-            return "./templates" + uriPath;
-        }
-        return "./static" + uriPath;
-    }
 }

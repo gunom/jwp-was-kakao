@@ -1,5 +1,6 @@
 package webserver.request;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import utils.ParseUtils;
@@ -8,10 +9,11 @@ public class Path {
 
     private final String path;
     private Map<String, String> params;
+    private final static String PATH_DELIMITER = "?";
 
     public Path(String path) {
         this.path = path;
-        if (path.contains("?")) {
+        if (path.contains(PATH_DELIMITER)) {
             parseParams();
         }
     }
@@ -26,6 +28,6 @@ public class Path {
     }
 
     public Map<String, String> getParams() {
-        return params;
+        return new HashMap<>(params);
     }
 }

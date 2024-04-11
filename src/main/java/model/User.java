@@ -16,10 +16,7 @@ public class User {
     }
 
     public User(Map<String, String> requestParams) {
-        this.userId = requestParams.get("userId");
-        this.password = requestParams.get("password");
-        this.name = requestParams.get("name");
-        this.email = requestParams.get("email");
+        this(requestParams.get("userId"), requestParams.get("password"), requestParams.get("name"), requestParams.get("email"));
     }
 
     public String getUserId() {

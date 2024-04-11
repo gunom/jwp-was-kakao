@@ -6,6 +6,7 @@ import webserver.request.Path;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class PathTest {
     @Test
@@ -15,8 +16,10 @@ public class PathTest {
         assertThat(path.getPathWithoutParam()).isEqualTo("/index.html");
 
         Map<String, String> params = path.getParams();
-        assertThat(params.get("name")).isEqualTo("abc");
-        assertThat(params.get("age")).isEqualTo("20");
-        assertThat(params.get("job")).isEqualTo("programmer");
+        assertAll(
+                () -> assertThat(params.get("name")).isEqualTo("abc"),
+                () -> assertThat(params.get("age")).isEqualTo("20"),
+                () -> assertThat(params.get("job")).isEqualTo("programmer")
+        );
     }
 }

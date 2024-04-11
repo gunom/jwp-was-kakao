@@ -8,7 +8,7 @@ public class RequestLine {
 
     public RequestLine(String requestLine) {
         String[] tokens = requestLine.split(" ");
-        this.method = new Method(tokens[0]);
+        this.method = Method.of(tokens[0]);
         this.path = new Path(tokens[1]);
         this.protocol = new Protocol(tokens[2]);
     }
