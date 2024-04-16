@@ -1,6 +1,8 @@
 package service;
 
 import java.util.Collection;
+import java.util.Map;
+
 import db.DataBase;
 import model.User;
 
