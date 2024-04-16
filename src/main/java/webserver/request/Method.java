@@ -26,4 +26,8 @@ public class Method {
     public String getMethod() {
         return method;
     }
+
+    public boolean equals(String method) {
+        return this.method.equals(method);
+    }
 }

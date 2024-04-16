@@ -7,9 +7,10 @@ import webserver.response.Response;
 import webserver.session.Session;
 import webserver.session.SessionManager;
 
-public class LoginController {
+public class LoginController implements Controller {
 
-    public static Response doPost(Request request) {
+    @Override
+    public Response doPost(Request request) {
         try {
             User user = UserService.getUser(request.getBody());
             Response response = Response.redirect("login success","/index.html");
@@ -33,15 +34,12 @@ public class LoginController {
         response.setCookie(sessionId);
     }
 
-    public static Response doGet(Request request) {
+    @Override
+    public Response doGet(Request request) {
         String jSessionId = request.getCookies().get("JSESSIONID");
-        if (jSessionId == null) {
-            return StaticResourceController.doGet(request);
+        if (jSessionId == null || SessionManager.findSession(jSessionId) == null) {
+            return new StaticResourceController().doGet(request);
         }
-        Session session = SessionManager.findSession(jSessionId);
-        if (session != null) {
-            return Response.redirect("already logined","/index.html");
-        }
-        return StaticResourceController.doGet(request);
+        return Response.redirect("already logined", "/index.html");
     }
 }

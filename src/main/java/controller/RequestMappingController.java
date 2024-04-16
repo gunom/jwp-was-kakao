@@ -1,30 +1,26 @@
 package controller;
 
-import webserver.request.Path;
+import webserver.request.Method;
 import webserver.request.Request;
 import webserver.response.Response;
 
-import java.util.Map;
-import java.util.function.Function;
+import java.util.List;
 
 public class RequestMappingController {
 
-    private static final Map<String, Function<Request, Response>> controllerMap = Map.of(
-        "/", RequestMappingController::handleHome,
-        "/user/create", UserCreateController::doPost,
-        "/user/login", LoginController::doPost,
-        "/user/login.html", LoginController::doGet,
-        "/user/list.html", UserListController::doGet
+    private static final List<Route> routes = List.of(
+            new Route("/", new StaticResourceController(), Method.of("GET")),
+            new Route("/user/create", new UserCreateController(), Method.of("POST")),
+            new Route("/user/login", new LoginController(), Method.of("POST")),
+            new Route("/user/login.html", new LoginController(), Method.of("GET")),
+            new Route("/user/list.html", new UserListController(), Method.of("GET"))
     );
 
     public static Response handle(Request request) {
-        Path path = request.getPath();
-        return controllerMap
-            .getOrDefault(path.getPathWithoutParam(), StaticResourceController::doGet)
-            .apply(request);
-    }
-
-    private static Response handleHome(Request request) {
-        return Response.redirect("home", "/index.html");
+        return routes.stream()
+                .filter(route -> route.matches(request.getPath().getPathWithoutParam(), request.getMethod()))
+                .findFirst()
+                .orElse(new Route(request.getPath().getPathWithoutParam(), new StaticResourceController(), Method.of("GET")))
+                .handle(request);
     }
 }

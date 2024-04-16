@@ -10,9 +10,10 @@ import webserver.response.Response;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class StaticResourceController {
+public class StaticResourceController implements Controller{
 
-    public static Response doGet(Request request) {
+    @Override
+    public Response doGet(Request request) {
         Path path = request.getPath();
         String url = FilePathConverter.convertPathToFilePath(path.getPathWithoutParam());
         String contentType = ContentTypeResolver.getContentType(url);
@@ -21,5 +22,10 @@ public class StaticResourceController {
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Response doPost(Request request) {
+        throw new UnsupportedOperationException();
     }
 }

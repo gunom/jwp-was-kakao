@@ -14,9 +14,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserListController {
+public class UserListController implements Controller {
 
-    public static Response doGet(Request request) {
+    @Override
+    public Response doGet(Request request) {
         if (!checkLogin(request.getCookies())) {
             return Response.redirect("login required","/user/login.html");
         }
@@ -26,6 +27,11 @@ public class UserListController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Response doPost(Request request) {
+        throw new UnsupportedOperationException();
     }
 
     private static boolean checkLogin(Map<String, String> cookie) {

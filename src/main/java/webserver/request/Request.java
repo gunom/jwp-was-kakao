@@ -28,4 +28,8 @@ public class Request {
     public Map<String, String> getCookies() {
         return requestHeader.getCookies();
     }
+
+    public Method getMethod() {
+        return requestHeader.getRequestLine().getMethod();
+    }
 }
