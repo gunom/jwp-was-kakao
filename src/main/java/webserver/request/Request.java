@@ -24,4 +24,8 @@ public class Request {
     public Map<String, String> getBody() {
         return requestBody.getBody();
     }
+
+    public Map<String, String> getCookies() {
+        return requestHeader.getCookies();
+    }
 }

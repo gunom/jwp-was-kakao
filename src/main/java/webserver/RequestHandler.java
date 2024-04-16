@@ -9,7 +9,7 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import controller.Controller;
+import controller.RequestMappingController;
 import webserver.request.Request;
 import webserver.response.Response;
 
@@ -30,7 +30,7 @@ public class RequestHandler implements Runnable {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
             Request request = new Request(in);
             DataOutputStream dos = new DataOutputStream(out);
-            Response response = Controller.handle(request);
+            Response response = RequestMappingController.handle(request);
             dos.write(response.getHeader());
             dos.write(response.getBody());
             dos.flush();

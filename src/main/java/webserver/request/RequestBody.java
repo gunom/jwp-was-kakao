@@ -22,5 +22,4 @@ public class RequestBody {
     public Map<String, String> getBody() {
         return body;
     }
-
 }

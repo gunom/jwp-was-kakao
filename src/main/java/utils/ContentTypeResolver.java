@@ -7,7 +7,6 @@ public class ContentTypeResolver {
     private static final Map<String, String> CONTENT_TYPES = new HashMap<>();
     
     static {
-        // Add mappings for content types
         CONTENT_TYPES.put("html", "text/html");
         CONTENT_TYPES.put("css", "text/css");
         CONTENT_TYPES.put("js", "text/javascript");
@@ -15,6 +14,9 @@ public class ContentTypeResolver {
         CONTENT_TYPES.put("woff", "font/woff");
         CONTENT_TYPES.put("woff2", "font/woff2");
         CONTENT_TYPES.put("ttf", "font/ttf");
+        CONTENT_TYPES.put("ico", "image/x-icon");
+        CONTENT_TYPES.put("svg", "image/svg+xml");
+        CONTENT_TYPES.put("eof", "application/vnd.ms-fontobject");
     }
     
     public static String getContentType(String path) {
